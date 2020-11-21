@@ -36,12 +36,20 @@ puts "-------------"
 end
 
 def print(students)
-  counter = 0
-  while counter < students.length
-    puts "#{counter + 1}.#{students[counter][:name]}".center(10)
-    puts "Favourite food:#{students[counter][:fav_food]}".center(15)
-    puts "(#{students[counter][:cohort]} cohort)".center(15)
-    counter += 1
+  sorted_by_cohort = {}
+  students.each do |student|
+   cohort = student[:cohort]
+   name = student[:name]
+    if sorted_by_cohort[cohort] == nil
+       sorted_by_cohort[cohort] = [name]
+    else
+       sorted_by_cohort[cohort].push(name)
+    end
+  end
+
+  sorted_by_cohort.each do |cohort, names|
+    puts "Cohort: #{cohort}"
+    puts names
   end
 end
 
