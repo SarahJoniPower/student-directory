@@ -4,7 +4,7 @@ def input_students
   students = []
   while true do
     puts "Please enter a student name"
-    name = gets.chomp
+    name = gets.strip
       if name.empty? == true
       name = 'MISSING'
       elsif name == 'stop'
