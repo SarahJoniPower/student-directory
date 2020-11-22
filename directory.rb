@@ -1,32 +1,34 @@
+@students = []
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  students = []
+  #students = []
   name = gets.chomp
     while !name.empty? do
-      students << {name: name, cohort: :november}
-      puts "Now we have #{students.count} students"
+      @students << {name: name, cohort: :november}
+      puts "Now we have #{@students.count} students"
       name = gets.chomp
     end
-  students
+  #students
 end
 
 def print_header
 puts "The students of Villains Academy"
 puts "-------------"
 end
-def print(students)
-  if students.length >= 1
-    students.each do |student|
+def print
+  if @students.length >= 1
+    @students.each do |student|
       puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
 end
-def print_footer(students)
-puts "Overall we have #{students.count} great students"
+def print_footer
+puts "Overall we have #{@students.count} great students"
 end
 
 students = input_students
 print_header
-print(students)
-print_footer(students)
+print
+print_footer

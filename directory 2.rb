@@ -1,7 +1,8 @@
+@students = []
+
 def input_students
   puts "Please enter the names of the students, followed by their details"
   puts "To finish, just type stop anytime"
-  students = []
   while true do
     puts "Please enter a student name"
     name = gets.strip
@@ -24,10 +25,9 @@ def input_students
       elsif cohort == 'stop'
         break
       end
-    students << {name: name, fav_food: fav_food, cohort: cohort.to_sym}
+    @students << {name: name, fav_food: fav_food, cohort: cohort.to_sym}
   end
-    puts "Now we have #{students.count} students"
-    students
+    puts "Now we have #{@students.count} students"
 end
 
 def print_header
@@ -35,10 +35,10 @@ puts "The students of Villains Academy"
 puts "-------------"
 end
 
-def print(students)
+def print_student_list
   sorted_by_cohort = {}
-    if students.length >= 1
-      students.each do |student|
+    if @students.length >= 1
+      @students.each do |student|
         cohort = student[:cohort]
         name = student[:name]
         if sorted_by_cohort[cohort] == nil
@@ -54,38 +54,44 @@ def print(students)
   end
 end
 
-def print_footer(students)
-  if students.count == 1
+def print_footer
+  if @students.count == 1
   puts "Overall we have #{students.count} great student"
   else
   puts "Overall we have #{students.count} great students"
   end
 end
 
-def interactive_menu
-  students = []
-  loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-    case selection
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_student_list
+  print_footer
+end
+
+def process(selection)
+  case selection
     when "1"
       students = input_students
     when "2"
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
       exit
     else
       puts "I don't know what you meant, try again"
-    end
+  end
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
   end
 end
 
 interactive_menu
-# students = input_students
-# print_header
-# print(students)
-# print_footer(students)
